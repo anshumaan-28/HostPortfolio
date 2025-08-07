@@ -1,103 +1,197 @@
-import Image from "next/image";
+"use client";
+
+import React, { useCallback } from "react";
+import Header from "@/components/Header";
+import ProfileCard from "@/components/ProfileCard";
+import Projects from "@/components/Projects";
+import Technologies from "@/components/Technologies";
+import Blog from "@/components/Blog";
+import Carousel from "@/components/Carousel";
+// import Testimonials from "@/components/Testimonials";
+import ConnectSection from "@/components/ConnectSection";
+import { FiGithub, FiLinkedin, FiMail, FiTwitter } from "react-icons/fi";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const handleSocialClick = useCallback((url: string): void => {
+    if (typeof window !== 'undefined') {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  }, []);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleConnectClick = useCallback((): void => {
+    // Open email client or contact form
+    if (typeof window !== 'undefined') {
+      window.open('mailto:anshumaan@example.com?subject=Let\'s Connect!', '_blank');
+    }
+  }, []);
+
+  const handleConnectKeyDown = useCallback((event: React.KeyboardEvent): void => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleConnectClick();
+    }
+  }, [handleConnectClick]);
+
+  const handleResumeClick = useCallback((): void => {
+    // Trigger resume download
+    const link = document.createElement('a');
+    link.href = '/resume.pdf'; // Add your resume file to the public folder
+    link.download = 'Anshumaan_Sharma_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, []);
+
+  const handleResumeKeyDown = useCallback((event: React.KeyboardEvent): void => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleResumeClick();
+    }
+  }, [handleResumeClick]);
+
+  const socialLinks = [
+    { name: "GitHub", url: "https://github.com/anshumaan", icon: FiGithub },
+    { name: "LinkedIn", url: "https://linkedin.com/in/anshumaan", icon: FiLinkedin },
+    { name: "Email", url: "mailto:anshumaan@example.com", icon: FiMail },
+    { name: "Twitter", url: "https://twitter.com/anshumaan", icon: FiTwitter }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] text-[#ededed]">
+      {/* Header */}
+      <Header />
+      
+      {/* Hero Section */}
+      <div id="home" className="min-h-screen pt-16 sm:pt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)]">
+          {/* Left Column - Content */}
+          <div className="flex flex-col justify-center items-start px-4 py-8 sm:px-6 sm:py-12 lg:px-12 lg:py-16 xl:px-26 xl:py-20 order-2 lg:order-1">
+            <div className="w-full max-w-md space-y-4 sm:space-y-6">
+              {/* Header Section */}
+              <div className="space-y-2 sm:space-y-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
+                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-gray-300 font-medium">Available for work</span>
+                </div>
+                
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+                  <span className="block text-white">Anshumaan</span>
+                  <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                    Sharma
+                  </span>
+                </h1>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-6 sm:w-8 h-px bg-gradient-to-r from-blue-400 to-transparent"></div>
+                  <h2 className="text-sm sm:text-base lg:text-lg xl:text-xl font-medium text-gray-300">
+                    Software Engineer
+                  </h2>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="space-y-2 sm:space-y-3">
+                <p className="text-sm sm:text-base lg:text-lg text-gray-400 leading-relaxed">
+                  I build websites that work{" "}
+                  <span className="text-white font-medium">smoothly</span>, look{" "}
+                  <span className="text-white font-medium">clean</span>, and occasionally make people say,{" "}
+                  <span className="text-blue-400 font-medium">"Nice."</span>
+                </p>
+                
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <span>✨</span>
+                  <span>Crafting digital experiences since 2020</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-2 sm:pt-3 w-full">
+                <button
+                  className="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-medium text-sm text-white transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 min-h-[44px] w-full sm:w-auto"
+                  onClick={handleConnectClick}
+                  onKeyDown={handleConnectKeyDown}
+                  type="button"
+                  tabIndex={0}
+                  aria-label="Let's connect and start a conversation"
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    <span>Let's Connect</span>
+                    <svg 
+                      className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600 to-purple-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                </button>
+
+                <button
+                  className="group px-6 py-3 bg-white/5 border border-white/20 rounded-lg font-medium text-sm text-white transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-gray-900 backdrop-blur-sm min-h-[44px] w-full sm:w-auto"
+                  onClick={handleResumeClick}
+                  onKeyDown={handleResumeKeyDown}
+                  type="button"
+                  tabIndex={0}
+                  aria-label="Download my resume"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <svg 
+                      className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>Download Resume</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - ProfileCard */}
+          <div className="flex items-center justify-center p-4 sm:p-6 lg:p-12 order-1 lg:order-2">
+            <div className="w-full max-w-[280px] sm:max-w-xs">
+              <ProfileCard
+                enableTilt={true}
+                enableMobileTilt={true}
+                socialLinks={socialLinks}
+                onSocialClick={handleSocialClick}
+                className="w-full"
+              />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      
+      {/* Projects Section */}
+      <div id="projects">
+        <Projects />
+      </div>
+      
+      {/* Technologies Section */}
+      <Technologies />
+      
+      {/* Services Carousel */}
+      <div id="services">
+        <Carousel />
+      </div>
+      
+      {/* Blog Section */}
+      <div id="blog">
+        <Blog />
+      </div>
+      
+      {/* Testimonials Section */}
+      {/* <Testimonials /> */}
+      
+      {/* Connect Section */}
+      <div id="connect">
+        <ConnectSection />
+      </div>
     </div>
   );
 }
