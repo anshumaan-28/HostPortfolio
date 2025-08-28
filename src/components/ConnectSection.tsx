@@ -12,56 +12,56 @@ const socialLinks = [
   {
     name: "GitHub",
     icon: <SiGithub size={24} />,
-    url: "https://github.com/anshumaan",
+    url: "https://github.com/anshumaan-28",
     color: "bg-gradient-to-br from-neutral-800 to-neutral-700 hover:from-neutral-700 hover:to-neutral-600",
     textColor: "text-white",
-    username: "anshumaan",
+    username: "anshumaan-28",
     description: "Code repositories & projects"
   },
   {
     name: "LinkedIn",
     icon: <SiLinkedin size={24} />,
-    url: "https://linkedin.com/in/anshumaan",
+    url: "https://www.linkedin.com/in/anshumaansharma28/",
     color: "bg-gradient-to-br from-blue-700 to-blue-600 hover:from-blue-600 hover:to-blue-500",
     textColor: "text-white",
-    username: "anshumaan",
+    username: "anshumaansharma28",
     description: "Professional network"
   },
   {
     name: "Twitter",
     icon: <SiX size={24} />,
-    url: "https://twitter.com/anshumaan",
+    url: "https://x.com/anshumaan_28",
     color: "bg-gradient-to-br from-neutral-900 to-neutral-800 hover:from-neutral-800 hover:to-neutral-700",
     textColor: "text-white",
-    username: "@anshumaan",
+    username: "@anshumaan_28",
     description: "Latest thoughts & updates"
   },
   {
     name: "Medium",
     icon: <SiMedium size={24} />,
-    url: "mailto:anshumaan.sharma.vns@gmail.com",
+    url: "https://medium.com/@anshumaansharma",
     color: "bg-gradient-to-br from-neutral-300 to-neutral-200 hover:from-neutral-200 hover:to-neutral-100",
     textColor: "text-black",
-    username: "axuman",
-    description: "Direct communication"
+    username: "anshumaansharma",
+    description: "Blog posts & articles"
   },
    {
     name: "Instagram",
     icon: <SiInstagram size={24} />,
-    url: "mailto:anshumaan.sharma.vns@gmail.com",
+    url: "https://www.instagram.com/anshumaansharma_/",
     color: "bg-gradient-to-br from-pink-800 to-pink-600 hover:from-pink-600 hover:to-pink-500",
     textColor: "text-white",
-    username: "axuman",
-    description: "Direct communication"
+    username: "anshumaansharma_",
+    description: "Visual content & stories"
   },
    {
     name: "Pinterest",
     icon: <SiPinterest size={24} />,
-    url: "mailto:anshumaan.sharma.vns@gmail.com",
+    url: "https://in.pinterest.com/Anshumaan_28/",
     color: "bg-gradient-to-br from-red-600 to-red-500 hover:from-red-500 hover:to-red-400",
     textColor: "text-white",
-    username: "axuman",
-    description: "Direct communication"
+    username: "Anshumaan_28",
+    description: "Creative inspirations"
   },
   
 ];

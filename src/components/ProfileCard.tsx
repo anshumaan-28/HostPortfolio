@@ -21,14 +21,14 @@ interface ProfileCardProps {
 }
 
 const DEFAULT_SOCIAL_LINKS: SocialLink[] = [
-  { name: "GitHub", url: "https://github.com/anshumaan", icon: FiGithub },
-  { name: "LinkedIn", url: "https://linkedin.com/in/anshumaan", icon: FiLinkedin },
-  { name: "Twitter", url: "https://twitter.com/anshumaan", icon: FiTwitter },
-  { name: "Email", url: "mailto:anshumaan.sharma.vns@gmail.com", icon: FiMail },
+  { name: "GitHub", url: "https://github.com/anshumaan-28", icon: FiGithub },
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/anshumaansharma28/", icon: FiLinkedin },
+  { name: "Twitter", url: "https://x.com/anshumaan_28", icon: FiTwitter },
+  { name: "Email", url: "mailto:mail@anshumaan.me", icon: FiMail },
 ];
 
 const ProfileCard: React.FC<ProfileCardProps> = ({
-  avatarUrl = "/https://www.anshumaan.me/_next/image?url=%2Fprofile.png&w=640&q=75",
+  avatarUrl = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format",
   className = "",
   enableTilt = true,
   enableMobileTilt = false,

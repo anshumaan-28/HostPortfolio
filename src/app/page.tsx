@@ -9,6 +9,7 @@ import Blog from "@/components/Blog";
 import Carousel from "@/components/Carousel";
 // import Testimonials from "@/components/Testimonials";
 import ConnectSection from "@/components/ConnectSection";
+import Footer from "@/components/Footer";
 import { FiGithub, FiLinkedin, FiMail, FiTwitter } from "react-icons/fi";
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
   const handleConnectClick = useCallback((): void => {
     // Open email client or contact form
     if (typeof window !== 'undefined') {
-      window.open('mailto:anshumaan@example.com?subject=Let\'s Connect!', '_blank');
+      window.open('mailto:mail@anshumaan.me?subject=Let\'s Connect!', '_blank');
     }
   }, []);
 
@@ -50,10 +51,10 @@ export default function Home() {
   }, [handleResumeClick]);
 
   const socialLinks = [
-    { name: "GitHub", url: "https://github.com/anshumaan", icon: FiGithub },
-    { name: "LinkedIn", url: "https://linkedin.com/in/anshumaan", icon: FiLinkedin },
-    { name: "Email", url: "mailto:anshumaan@example.com", icon: FiMail },
-    { name: "Twitter", url: "https://twitter.com/anshumaan", icon: FiTwitter }
+    { name: "GitHub", url: "https://github.com/anshumaan-28", icon: FiGithub },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/anshumaansharma28/", icon: FiLinkedin },
+    { name: "Email", url: "mailto:mail@anshumaan.me", icon: FiMail },
+    { name: "Twitter", url: "https://x.com/anshumaan_28", icon: FiTwitter }
   ];
 
   return (
@@ -192,6 +193,9 @@ export default function Home() {
       <div id="connect">
         <ConnectSection />
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

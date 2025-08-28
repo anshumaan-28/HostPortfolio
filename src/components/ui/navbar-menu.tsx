@@ -22,8 +22,20 @@ export const MenuItem = ({
   item: string;
   children?: React.ReactNode;
 }) => {
+  const getDropdownPosition = () => {
+    // On mobile, Portfolio and Connect (the first and last items) need special positioning
+    if (item === "Portfolio") {
+      return "absolute top-[calc(100%_+_1.2rem)] left-0 sm:left-1/2 sm:transform sm:-translate-x-1/2 pt-4 z-50";
+    }
+    if (item === "Connect") {
+      return "absolute top-[calc(100%_+_1.2rem)] right-0 sm:left-1/2 sm:transform sm:-translate-x-1/2 pt-4 z-50";
+    }
+    // For middle items (Services, Blog), use center alignment
+    return "absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4 z-50";
+  };
+
   return (
-    <div onMouseEnter={() => setActive(item)} className="relative ">
+    <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-white hover:text-blue-400 transition-colors duration-300"
@@ -37,15 +49,15 @@ export const MenuItem = ({
           transition={transition}
         >
           {active === item && (
-            <div className="absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4">
+            <div className={getDropdownPosition()}>
               <motion.div
                 transition={transition}
                 layoutId="active" // layoutId ensures smooth animation
-                className="bg-[#111111] backdrop-blur-sm rounded-2xl overflow-hidden border border-white/[0.2] shadow-xl"
+                className="bg-[#111111] backdrop-blur-sm rounded-2xl overflow-hidden border border-white/[0.2] shadow-xl max-w-[90vw] sm:max-w-none"
               >
                 <motion.div
                   layout // layout ensures smooth animation
-                  className="w-max h-full p-4"
+                  className="w-max h-full p-4 max-w-[85vw] sm:max-w-none"
                 >
                   {children}
                 </motion.div>
@@ -68,7 +80,7 @@ export const Menu = ({
   return (
     <nav
       onMouseLeave={() => setActive(null)} // resets the state
-      className="relative rounded-full border border-white/[0.2] bg-black/50 backdrop-blur-md shadow-xl flex justify-center space-x-6 px-8 py-4"
+      className="relative rounded-full border border-white/[0.2] bg-black/50 backdrop-blur-md shadow-xl flex justify-center space-x-3 sm:space-x-6 px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-base"
     >
       {children}
     </nav>
@@ -87,7 +99,12 @@ export const ProjectItem = ({
   src: string;
 }) => {
   return (
-    <a href={href} className="flex space-x-3 hover:bg-white/5 p-2 rounded-lg transition-colors duration-300">
+    <a 
+      href={href} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="flex space-x-3 hover:bg-white/5 p-2 rounded-lg transition-colors duration-300"
+    >
       <img
         src={src}
         width={60}

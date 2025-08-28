@@ -27,7 +27,7 @@ const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     date: "Jan 15, 2025",
     category: "AI & Productivity",
-    slug: "structured-prompt-app-planning"
+    slug: "https://anshumaansharma.medium.com/structured-prompt-for-generating-app-planning-conversations-c63551405722"
   },
   {
     id: "blog-sites-after-ai",
@@ -38,7 +38,7 @@ const blogPosts: BlogPost[] = [
     readTime: "8 min read",
     date: "Jan 10, 2025",
     category: "AI & Content",
-    slug: "blog-sites-after-ai"
+    slug: "https://anshumaansharma.medium.com/blog-sites-after-ai-how-your-content-became-someone-elses-data-2f57e195ac59"
   },
   {
     id: "ai-digital-marketing",
@@ -49,7 +49,7 @@ const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     date: "Jan 5, 2025",
     category: "Digital Marketing",
-    slug: "ai-digital-marketing"
+    slug: "https://anshumaansharma.medium.com/how-ai-is-revolutionising-digital-marketing-opportunities-risks-and-seo-implications-442d614cf144"
   },
   {
     id: "wtf-is-perplexity",
@@ -60,7 +60,7 @@ const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     date: "Dec 28, 2024",
     category: "AI Tools",
-    slug: "wtf-is-perplexity"
+    slug: "https://anshumaansharma.medium.com/wtf-is-perplexity-ai-830ef31838a0"
   }
 ];
 
@@ -85,26 +85,26 @@ const BlogCard: React.FC<{ post: BlogPost; index: number }> = ({ post, index }) 
       >
         <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black bg-black/40 opacity-60"></div>
         
-        {/* Author Info */}
-        <div className="flex flex-row items-center space-x-4 z-10">
-          <img
-            height="40"
-            width="40"
-            alt="Author Avatar"
-            src="/avatar.jpg"
-            className="h-10 w-10 rounded-full border-2 border-white/50 object-cover"
-          />
-          <div className="flex flex-col">
-            <p className="font-normal text-base text-gray-50 relative z-10">
-              {post.author}
-            </p>
-            <p className="text-sm text-gray-300">{post.readTime}</p>
+        {/* Header with Author and Category */}
+        <div className="flex justify-between items-start z-10 mb-2">
+          <div className="flex flex-row items-center space-x-3">
+            <img
+              height="36"
+              width="36"
+              alt="Author Avatar"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=36&h=36&fit=crop&crop=face&auto=format"
+              className="h-9 w-9 rounded-full border-2 border-white/50 object-cover"
+            />
+            <div className="flex flex-col">
+              <p className="font-medium text-sm text-gray-50 relative z-10">
+                {post.author}
+              </p>
+              <p className="text-xs text-gray-300">{post.readTime}</p>
+            </div>
           </div>
-        </div>
-
-        {/* Category Badge */}
-        <div className="absolute top-4 right-4 z-10">
-          <span className="px-2 py-1 text-xs font-medium bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30">
+          
+          {/* Category Badge */}
+          <span className="px-2 py-1 text-xs font-medium bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30 flex-shrink-0 ml-2">
             {post.category}
           </span>
         </div>
@@ -120,7 +120,9 @@ const BlogCard: React.FC<{ post: BlogPost; index: number }> = ({ post, index }) 
           
           {/* Read More Link */}
           <a
-            href={`/blog/${post.slug}`}
+            href={post.slug}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-medium text-white/90 hover:text-white transition-colors duration-200 relative z-10"
           >
             <span>Read More</span>
