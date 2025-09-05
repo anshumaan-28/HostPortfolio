@@ -71,7 +71,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const cardWidth = isMobile() ? 288 : 384; // (w-72 = 18rem = 288px, md:w-96 = 24rem = 384px)
       const gap = isMobile() ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
@@ -92,7 +92,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     >
       <div className="relative w-full">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20"
+          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-6 px-1 [scrollbar-width:none] md:py-20 md:px-0"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
@@ -104,7 +104,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
           <div
             className={cn(
-              "flex flex-row justify-start gap-4 pl-4",
+              "flex flex-row justify-start gap-4 pl-4 md:pl-6",
               "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
             )}
           >
@@ -238,19 +238,19 @@ export const Card = ({
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="relative z-10 flex h-48 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-white/5 border border-white/10 md:h-96 md:w-96 hover:bg-white/10 transition-all duration-300"
+        className="relative z-10 flex h-64 w-72 flex-col items-center justify-start overflow-hidden rounded-3xl bg-white/5 border border-white/10 md:h-96 md:w-96 md:items-start hover:bg-white/10 transition-all duration-300"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />
-        <div className="relative z-40 p-8">
+        <div className="relative z-40 p-6 md:p-8 w-full">
           <motion.p
             layoutId={layout ? `category-${card.category}` : undefined}
-            className="text-left font-sans text-sm font-medium text-blue-300 md:text-base"
+            className="text-center font-sans text-base font-medium text-blue-300 md:text-base md:text-left"
           >
             {card.category}
           </motion.p>
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="mt-2 max-w-xs text-left font-sans text-xl font-semibold [text-wrap:balance] text-white md:text-3xl"
+            className="mt-2 max-w-xs text-center font-sans text-2xl font-semibold [text-wrap:balance] text-white md:text-3xl md:text-left mx-auto md:mx-0"
           >
             {card.title}
           </motion.p>

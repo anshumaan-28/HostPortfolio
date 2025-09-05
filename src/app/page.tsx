@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Header from "@/components/Header";
-import ProfileCard from "@/components/ProfileCard";
+import StatPanel from "@/components/StatPanel";
 import Projects from "@/components/Projects";
 import Technologies from "@/components/Technologies";
 import Blog from "@/components/Blog";
@@ -13,6 +13,16 @@ import Footer from "@/components/Footer";
 import { FiGithub, FiLinkedin, FiMail, FiTwitter } from "react-icons/fi";
 
 export default function Home() {
+  // State for form pre-filling
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  
+  // Reference to the connect section for scrolling
+  const connectSectionRef = useRef<HTMLDivElement>(null);
+
   const handleSocialClick = useCallback((url: string): void => {
     if (typeof window !== 'undefined') {
       window.open(url, '_blank', 'noopener,noreferrer');
@@ -49,6 +59,23 @@ export default function Home() {
       handleResumeClick();
     }
   }, [handleResumeClick]);
+  
+  // Handle starting a project from the Carousel
+  const handleStartProject = useCallback((serviceInfo: string): void => {
+    // Set the message in the contact form
+    setFormState(prev => ({
+      ...prev,
+      message: serviceInfo
+    }));
+    
+    // Scroll to the contact form
+    if (connectSectionRef.current) {
+      connectSectionRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start'
+      });
+    }
+  }, []);
 
   const socialLinks = [
     { name: "GitHub", url: "https://github.com/anshumaan-28", icon: FiGithub },
@@ -66,8 +93,8 @@ export default function Home() {
       <div id="home" className="min-h-screen pt-16 sm:pt-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)]">
           {/* Left Column - Content */}
-          <div className="flex flex-col justify-center items-start px-4 py-8 sm:px-6 sm:py-12 lg:px-12 lg:py-16 xl:px-26 xl:py-20 order-2 lg:order-1">
-            <div className="w-full max-w-md space-y-4 sm:space-y-6">
+          <div className="flex flex-col justify-center items-center md:items-start px-4 py-8 sm:px-6 sm:py-12 lg:px-12 lg:py-16 xl:px-26 xl:py-20 order-2 lg:order-1">
+            <div className="w-full max-w-md space-y-4 sm:space-y-6 text-center md:text-left">
               {/* Header Section */}
               <div className="space-y-2 sm:space-y-3">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">
@@ -75,7 +102,7 @@ export default function Home() {
                   <span className="text-xs text-gray-300 font-medium">Available for work</span>
                 </div>
                 
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+                <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
                   <span className="block text-white">Anshumaan</span>
                   <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
                     Sharma
@@ -105,6 +132,23 @@ export default function Home() {
                 </div>
               </div>
 
+              {/* Mobile Social Links (only visible on mobile) */}
+              <div className="flex md:hidden justify-center gap-4 pt-3">
+                {socialLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <button
+                      key={link.name}
+                      onClick={() => handleSocialClick(link.url)}
+                      className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors duration-300"
+                      aria-label={link.name}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </button>
+                  );
+                })}
+              </div>
+              
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2 sm:pt-3 w-full">
                 <button
@@ -150,19 +194,18 @@ export default function Home() {
                   </span>
                 </button>
               </div>
+              
+              {/* Mobile Stats Panel (only visible on mobile) */}
+              <div className="md:hidden mt-8">
+                <StatPanel className="w-full max-w-none" />
+              </div>
             </div>
           </div>
 
-          {/* Right Column - ProfileCard */}
-          <div className="flex items-center justify-center p-4 sm:p-6 lg:p-12 order-1 lg:order-2">
-            <div className="w-full max-w-[280px] sm:max-w-xs">
-              <ProfileCard
-                enableTilt={true}
-                enableMobileTilt={true}
-                socialLinks={socialLinks}
-                onSocialClick={handleSocialClick}
-                className="w-full"
-              />
+          {/* Right Column - Stats Panel (hidden on mobile) */}
+          <div className="hidden md:flex items-center justify-center p-4 sm:p-6 lg:p-8 order-1 lg:order-2">
+            <div className="w-full max-w-[300px]">
+              <StatPanel className="w-full h-full" />
             </div>
           </div>
         </div>
@@ -178,7 +221,7 @@ export default function Home() {
       
       {/* Services Carousel */}
       <div id="services">
-        <Carousel />
+        <Carousel onStartProject={handleStartProject} />
       </div>
       
       {/* Blog Section */}
@@ -190,8 +233,8 @@ export default function Home() {
       {/* <Testimonials /> */}
       
       {/* Connect Section */}
-      <div id="connect">
-        <ConnectSection />
+      <div id="connect" ref={connectSectionRef}>
+        <ConnectSection prefilledMessage={formState.message} />
       </div>
       
       {/* Footer */}

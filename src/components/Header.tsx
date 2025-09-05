@@ -7,7 +7,7 @@ import { FiGithub, FiLinkedin, FiMail, FiTwitter } from "react-icons/fi";
 export default function Header() {
   return (
     <div className="relative w-full flex items-center justify-center">
-      <Navbar className="top-2" />
+      <Navbar className="top-2 sm:top-3" />
     </div>
   );
 }
@@ -20,11 +20,14 @@ function Navbar({ className }: { className?: string }) {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    
+    // Close dropdown on mobile after clicking
+    setActive(null);
   };
 
   return (
     <div
-      className={cn("fixed top-3 sm:top-6 inset-x-0 max-w-full sm:max-w-2xl mx-auto z-50 px-4 sm:px-0", className)}
+      className={cn("fixed top-2 sm:top-6 inset-x-0 max-w-full sm:max-w-2xl lg:max-w-3xl mx-auto z-50 px-2 sm:px-4", className)}
     >
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Portfolio">
@@ -108,10 +111,52 @@ function Navbar({ className }: { className?: string }) {
         </MenuItem>
 
         <MenuItem setActive={setActive} active={active} item="Connect">
-          <div className="flex flex-col space-y-4 text-sm min-w-[220px]">
+          <div className="flex flex-col space-y-4 text-sm min-w-[220px] max-w-[90vw]">
             <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Get In Touch</div>
             
-            <div className="space-y-3">
+            {/* Mobile-optimized Connect layout */}
+            <div className="sm:hidden grid grid-cols-2 gap-2">
+              <a 
+                href="mailto:mail@anshumaan.me"
+                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 p-2 rounded-lg hover:bg-white/5 text-xs"
+              >
+                <FiMail className="w-3.5 h-3.5" />
+                <span>Email</span>
+              </a>
+              
+              <a 
+                href="https://github.com/anshumaan-28"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 p-2 rounded-lg hover:bg-white/5 text-xs"
+              >
+                <FiGithub className="w-3.5 h-3.5" />
+                <span>GitHub</span>
+              </a>
+              
+              <a 
+                href="https://www.linkedin.com/in/anshumaansharma28/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 p-2 rounded-lg hover:bg-white/5 text-xs"
+              >
+                <FiLinkedin className="w-3.5 h-3.5" />
+                <span>LinkedIn</span>
+              </a>
+              
+              <a 
+                href="https://x.com/anshumaan_28"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 p-2 rounded-lg hover:bg-white/5 text-xs"
+              >
+                <FiTwitter className="w-3.5 h-3.5" />
+                <span>Twitter</span>
+              </a>
+            </div>
+            
+            {/* Desktop Connect layout */}
+            <div className="hidden sm:block space-y-3">
               <a 
                 href="mailto:mail@anshumaan.me"
                 className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors duration-300 p-2 rounded-lg hover:bg-white/5"

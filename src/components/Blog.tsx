@@ -91,8 +91,8 @@ const BlogCard: React.FC<{ post: BlogPost; index: number }> = ({ post, index }) 
             <img
               height="36"
               width="36"
-              alt="Author Avatar"
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=36&h=36&fit=crop&crop=face&auto=format"
+              alt="Anshumaan Sharma"
+              src="/images/Profilecard.PNG"
               className="h-9 w-9 rounded-full border-2 border-white/50 object-cover"
             />
             <div className="flex flex-col">
@@ -171,7 +171,9 @@ const Blog: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           <motion.a
-            href="/blog"
+            href="https://anshumaansharma.medium.com/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/20 rounded-lg font-medium text-sm text-white hover:bg-white/10 hover:border-white/30 transition-all duration-300 backdrop-blur-sm min-h-[44px]"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}

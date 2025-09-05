@@ -51,8 +51,8 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#0a0a0a] border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* About Section */}
           <motion.div
             className="lg:col-span-2"
@@ -63,9 +63,7 @@ const Footer: React.FC = () => {
           >
             <h3 className="text-xl font-bold text-white mb-4">Anshumaan Sharma</h3>
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-md">
-              Full-stack developer and AI enthusiast crafting innovative digital solutions. 
-              Passionate about creating impactful web applications and exploring the intersection 
-              of technology and user experience.
+              Full-stack developer and AI enthusiast with 3+ years of experience helping businesses build powerful web applications, e-commerce platforms, and automated solutions. I specialize in turning ideas into scalable, high-performing digital products that don't just look good but deliver measurable results. Whether it's creating seamless user experiences, streamlining workflows with AI, or developing custom solutions tailored to your needs, I'm here to help bring your vision to life.
             </p>
             
             {/* Contact Info */}

@@ -66,26 +66,45 @@ const socialLinks = [
   
 ];
 
-export default function ConnectSection() {
+export default function ConnectSection({ prefilledMessage = "" }: { prefilledMessage?: string }) {
   const formRef = useRef<HTMLDivElement>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
   const controls = useAnimation();
   const isFormInView = useInView(formRef, { once: true, amount: 0.3 });
 
   const [formState, setFormState] = useState({
     name: "",
     email: "",
-    message: "",
+    message: prefilledMessage || "",
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [activeTab, setActiveTab] = useState<'social' | 'form'>('social');
+  const [activeTab, setActiveTab] = useState<'social' | 'form'>(prefilledMessage ? 'form' : 'social');
   
   useEffect(() => {
     if (isFormInView) {
       controls.start('visible');
     }
   }, [isFormInView, controls]);
+  
+  // Effect to handle prefilled message updates
+  useEffect(() => {
+    if (prefilledMessage) {
+      setFormState(prev => ({
+        ...prev,
+        message: prefilledMessage
+      }));
+      setActiveTab('form');
+      
+      // Focus on the message input after a short delay
+      setTimeout(() => {
+        if (messageInputRef.current) {
+          messageInputRef.current.focus();
+        }
+      }, 500);
+    }
+  }, [prefilledMessage]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -344,6 +363,7 @@ export default function ConnectSection() {
                         value={formState.message}
                         onChange={handleChange}
                         required
+                        ref={messageInputRef}
                         className="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all resize-none"
                         placeholder="I'm interested in discussing a potential collaboration..."
                       />

@@ -17,28 +17,54 @@ export const MenuItem = ({
   item,
   children,
 }: {
-  setActive: (item: string) => void;
+  setActive: (item: string | null) => void;
   active: string | null;
   item: string;
   children?: React.ReactNode;
 }) => {
-  const getDropdownPosition = () => {
-    // On mobile, Portfolio and Connect (the first and last items) need special positioning
-    if (item === "Portfolio") {
-      return "absolute top-[calc(100%_+_1.2rem)] left-0 sm:left-1/2 sm:transform sm:-translate-x-1/2 pt-4 z-50";
+  const isLastItem = item === "Connect"; // Special handling for the last item
+  const isServices = item === "Services";
+  const isBlog = item === "Blog";
+  
+  // Function to handle mobile scroll behavior for Services and Blog
+  const handleMobileClick = () => {
+    // Check if we're on mobile using a media query
+    const isMobileView = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+    
+    // For mobile: Services and Blog scroll to their sections
+    if (isMobileView) {
+      if (isServices) {
+        const servicesSection = document.getElementById('services');
+        if (servicesSection) {
+          servicesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        setActive(null); // Close dropdown
+        return;
+      }
+      
+      if (isBlog) {
+        const blogSection = document.getElementById('blog');
+        if (blogSection) {
+          blogSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        setActive(null); // Close dropdown
+        return;
+      }
     }
-    if (item === "Connect") {
-      return "absolute top-[calc(100%_+_1.2rem)] right-0 sm:left-1/2 sm:transform sm:-translate-x-1/2 pt-4 z-50";
-    }
-    // For middle items (Services, Blog), use center alignment
-    return "absolute top-[calc(100%_+_1.2rem)] left-1/2 transform -translate-x-1/2 pt-4 z-50";
+    
+    // Desktop behavior (unchanged) or for other menu items on mobile
+    setActive(active === item ? null : item);
   };
-
+  
   return (
-    <div onMouseEnter={() => setActive(item)} className="relative">
+    <div 
+      onMouseEnter={() => setActive(item)} 
+      onClick={handleMobileClick}
+      className="relative py-2 md:py-0"
+    >
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-white hover:text-blue-400 transition-colors duration-300"
+        className="cursor-pointer text-white hover:text-blue-400 transition-colors duration-300 text-sm md:text-base whitespace-nowrap px-2"
       >
         {item}
       </motion.p>
@@ -49,15 +75,20 @@ export const MenuItem = ({
           transition={transition}
         >
           {active === item && (
-            <div className={getDropdownPosition()}>
+            <div className={`absolute top-[calc(100%_+_1.2rem)] ${isLastItem ? 'md:right-0 right-0' : 'md:left-1/2 left-0'} transform ${isLastItem ? 'md:translate-x-0' : 'md:-translate-x-1/2'} translate-x-0 pt-4 z-50 ${(isServices || isBlog) ? 'md:block hidden' : ''}`}>
               <motion.div
                 transition={transition}
                 layoutId="active" // layoutId ensures smooth animation
-                className="bg-[#111111] backdrop-blur-sm rounded-2xl overflow-hidden border border-white/[0.2] shadow-xl max-w-[90vw] sm:max-w-none"
+                className="bg-[#111111] backdrop-blur-sm rounded-2xl overflow-hidden border border-white/[0.2] shadow-xl"
+                style={{
+                  maxHeight: 'calc(80vh - 100px)',
+                  overflowY: 'auto',
+                  maxWidth: 'min(calc(100vw - 16px), 300px)'
+                }}
               >
                 <motion.div
                   layout // layout ensures smooth animation
-                  className="w-max h-full p-4 max-w-[85vw] sm:max-w-none"
+                  className="w-max max-w-[min(calc(100vw-16px),300px)] h-full p-3"
                 >
                   {children}
                 </motion.div>
@@ -80,7 +111,7 @@ export const Menu = ({
   return (
     <nav
       onMouseLeave={() => setActive(null)} // resets the state
-      className="relative rounded-full border border-white/[0.2] bg-black/50 backdrop-blur-md shadow-xl flex justify-center space-x-3 sm:space-x-6 px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-base"
+      className="relative rounded-full border border-white/[0.2] bg-black/50 backdrop-blur-md shadow-xl flex flex-wrap justify-center space-x-3 md:space-x-6 px-4 md:px-8 py-3 md:py-4"
     >
       {children}
     </nav>

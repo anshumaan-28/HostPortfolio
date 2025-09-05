@@ -5,12 +5,35 @@ import { motion } from "framer-motion";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 import { FiCode, FiLayers, FiZap, FiTrendingUp, FiUsers, FiGlobe } from "react-icons/fi";
 
-const DeveloperContent = ({ title, description, features, techStack }: {
+const DeveloperContent = ({ 
+  title, 
+  description, 
+  features, 
+  techStack,
+  onStartProject
+}: {
   title: string;
   description: string;
   features: string[];
   techStack: string[];
+  onStartProject?: (serviceInfo: string) => void;
 }) => {
+  // Function to handle starting a project
+  const handleStartProject = () => {
+    if (onStartProject) {
+      const serviceInfo = `
+I'm interested in your "${title}" service.
+
+Project Details:
+- Service: ${title}
+- Description: I would like to discuss a project that requires expertise in this area.
+- Key Requirements: ${features.slice(0, 3).join(', ')}
+      `.trim();
+      
+      onStartProject(serviceInfo);
+    }
+  };
+  
   return (
     <div className="space-y-6">
       <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
@@ -65,6 +88,7 @@ const DeveloperContent = ({ title, description, features, techStack }: {
           </div>
         </div>
         <motion.button
+          onClick={handleStartProject}
           className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-medium text-white hover:scale-105 transition-transform duration-300"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -76,10 +100,31 @@ const DeveloperContent = ({ title, description, features, techStack }: {
   );
 };
 
-export default function DeveloperCarousel() {
-  const cards = data.map((card, index) => (
-    <Card key={card.src} card={card} index={index} />
-  ));
+export default function DeveloperCarousel({ onStartProject }: { onStartProject?: (serviceInfo: string) => void }) {
+  const cards = data.map((card, index) => {
+    // Pass the onStartProject prop to the individual card contents
+    const cardWithProps = {
+      ...card,
+      // For each card, create a content element that has access to the onStartProject prop
+      content: (
+        <DeveloperContent
+          title={card.contentProps.title}
+          description={card.contentProps.description}
+          features={card.contentProps.features}
+          techStack={card.contentProps.techStack}
+          onStartProject={onStartProject}
+        />
+      )
+    };
+    
+    return (
+      <Card 
+        key={card.src} 
+        card={cardWithProps}
+        index={index}
+      />
+    );
+  });
 
   return (
     <section className="py-16 bg-[#0a0a0a] border-t border-white/5">
@@ -115,119 +160,123 @@ export default function DeveloperCarousel() {
   );
 }
 
-const data = [
+// Define the content props type for better TypeScript support
+interface ContentProps {
+  title: string;
+  description: string;
+  features: string[];
+  techStack: string[];
+}
+
+// Extend the card type to include contentProps
+interface CardData {
+  category: string;
+  title: string;
+  src: string;
+  contentProps: ContentProps;
+}
+
+const data: CardData[] = [
   {
     category: "Web Development",
     title: "Full-Stack Web Applications",
     src: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop&crop=center",
-    content: (
-      <DeveloperContent
-        title="Modern Web Applications"
-        description="I build scalable, performant web applications using cutting-edge technologies. From responsive frontends to robust backends, I create solutions that grow with your business."
-        features={[
-          "Responsive design for all devices",
-          "SEO-optimized architecture",
-          "Real-time features and APIs",
-          "Database design and optimization",
-          "Authentication and security"
-        ]}
-        techStack={["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL"]}
-      />
-    ),
+    contentProps: {
+      title: "Modern Web Applications",
+      description: "I build scalable, performant web applications using cutting-edge technologies. From responsive frontends to robust backends, I create solutions that grow with your business.",
+      features: [
+        "Responsive design for all devices",
+        "SEO-optimized architecture",
+        "Real-time features and APIs",
+        "Database design and optimization",
+        "Authentication and security"
+      ],
+      techStack: ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL"]
+    }
   },
   {
     category: "AI & Machine Learning",
     title: "AI-Powered Solutions",
     src: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop&crop=center",
-    content: (
-      <DeveloperContent
-        title="Intelligent Applications"
-        description="Harness the power of AI to automate processes, gain insights, and create innovative user experiences. I integrate machine learning models and AI APIs into practical business solutions."
-        features={[
-          "Natural language processing",
-          "Computer vision applications",
-          "Predictive analytics models",
-          "Chatbots and virtual assistants",
-          "Data analysis and visualization"
-        ]}
-        techStack={["Python", "TensorFlow", "OpenAI API", "Langchain", "Pandas"]}
-      />
-    ),
+    contentProps: {
+      title: "Intelligent Applications",
+      description: "Harness the power of AI to automate processes, gain insights, and create innovative user experiences. I integrate machine learning models and AI APIs into practical business solutions.",
+      features: [
+        "Natural language processing",
+        "Computer vision applications",
+        "Predictive analytics models",
+        "Chatbots and virtual assistants",
+        "Data analysis and visualization"
+      ],
+      techStack: ["Python", "TensorFlow", "OpenAI API", "Langchain", "Pandas"]
+    }
   },
   {
     category: "E-commerce",
     title: "Online Store Development",
     src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop&crop=center",
-    content: (
-      <DeveloperContent
-        title="Complete E-commerce Solutions"
-        description="From product catalogs to payment processing, I build comprehensive e-commerce platforms that convert visitors into customers and streamline your business operations."
-        features={[
-          "Product management systems",
-          "Secure payment integration",
-          "Inventory tracking",
-          "Order management",
-          "Analytics and reporting"
-        ]}
-        techStack={["Next.js", "Stripe", "MongoDB", "Vercel", "Tailwind CSS"]}
-      />
-    ),
+    contentProps: {
+      title: "Complete E-commerce Solutions",
+      description: "From product catalogs to payment processing, I build comprehensive e-commerce platforms that convert visitors into customers and streamline your business operations.",
+      features: [
+        "Product management systems",
+        "Secure payment integration",
+        "Inventory tracking",
+        "Order management",
+        "Analytics and reporting"
+      ],
+      techStack: ["Next.js", "Stripe", "MongoDB", "Vercel", "Tailwind CSS"]
+    }
   },
   {
     category: "Mobile Development",
     title: "Cross-Platform Mobile Apps",
     src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&crop=center",
-    content: (
-      <DeveloperContent
-        title="Native-Quality Mobile Apps"
-        description="Build once, deploy everywhere. I create mobile applications that work seamlessly across iOS and Android platforms while maintaining native performance and user experience."
-        features={[
-          "Cross-platform compatibility",
-          "Native performance optimization",
-          "Offline functionality",
-          "Push notifications",
-          "App store deployment"
-        ]}
-        techStack={["React Native", "Expo", "Firebase", "Redux", "TypeScript"]}
-      />
-    ),
+    contentProps: {
+      title: "Native-Quality Mobile Apps",
+      description: "Build once, deploy everywhere. I create mobile applications that work seamlessly across iOS and Android platforms while maintaining native performance and user experience.",
+      features: [
+        "Cross-platform compatibility",
+        "Native performance optimization",
+        "Offline functionality",
+        "Push notifications",
+        "App store deployment"
+      ],
+      techStack: ["React Native", "Expo", "Firebase", "Redux", "TypeScript"]
+    }
   },
   {
     category: "DevOps & Deployment",
     title: "Cloud Infrastructure & CI/CD",
     src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&crop=center",
-    content: (
-      <DeveloperContent
-        title="Scalable Cloud Solutions"
-        description="Set up robust, scalable infrastructure that grows with your needs. I implement CI/CD pipelines, monitoring systems, and deployment strategies that ensure reliability."
-        features={[
-          "Automated deployment pipelines",
-          "Cloud infrastructure setup",
-          "Performance monitoring",
-          "Security implementations",
-          "Backup and disaster recovery"
-        ]}
-        techStack={["Docker", "AWS", "Vercel", "GitHub Actions", "Terraform"]}
-      />
-    ),
+    contentProps: {
+      title: "Scalable Cloud Solutions",
+      description: "Set up robust, scalable infrastructure that grows with your needs. I implement CI/CD pipelines, monitoring systems, and deployment strategies that ensure reliability.",
+      features: [
+        "Automated deployment pipelines",
+        "Cloud infrastructure setup",
+        "Performance monitoring",
+        "Security implementations",
+        "Backup and disaster recovery"
+      ],
+      techStack: ["Docker", "AWS", "Vercel", "GitHub Actions", "Terraform"]
+    }
   },
   {
     category: "Consulting",
     title: "Technical Consulting & Strategy",
     src: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&crop=center",
-    content: (
-      <DeveloperContent
-        title="Strategic Technology Guidance"
-        description="Get expert advice on technology decisions, architecture choices, and development strategies. I help businesses make informed decisions about their technical roadmap."
-        features={[
-          "Technology stack recommendations",
-          "Architecture design and review",
-          "Code audits and optimization",
-          "Team training and mentoring",
-          "Project planning and estimation"
-        ]}
-        techStack={["System Design", "Code Review", "Mentoring", "Planning", "Best Practices"]}
-      />
-    ),
+    contentProps: {
+      title: "Strategic Technology Guidance",
+      description: "Get expert advice on technology decisions, architecture choices, and development strategies. I help businesses make informed decisions about their technical roadmap.",
+      features: [
+        "Technology stack recommendations",
+        "Architecture design and review",
+        "Code audits and optimization",
+        "Team training and mentoring",
+        "Project planning and estimation"
+      ],
+      techStack: ["System Design", "Code Review", "Mentoring", "Planning", "Best Practices"]
+    }
   },
 ];
