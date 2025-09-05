@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback, useState } from "react";
+import React, { useRef, useCallback, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 import { FiGithub, FiLinkedin, FiMail, FiTwitter } from "react-icons/fi";
@@ -15,7 +15,6 @@ interface ProfileCardProps {
   avatarUrl?: string;
   className?: string;
   enableTilt?: boolean;
-  enableMobileTilt?: boolean;
   socialLinks?: SocialLink[];
   onSocialClick?: (url: string) => void;
 }
@@ -31,7 +30,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   avatarUrl = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format",
   className = "",
   enableTilt = true,
-  enableMobileTilt = false,
   socialLinks = DEFAULT_SOCIAL_LINKS,
   onSocialClick
 }) => {

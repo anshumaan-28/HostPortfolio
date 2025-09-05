@@ -123,7 +123,7 @@ export default function Home() {
                   I build websites that work{" "}
                   <span className="text-white font-medium">smoothly</span>, look{" "}
                   <span className="text-white font-medium">clean</span>, and occasionally make people say,{" "}
-                  <span className="text-blue-400 font-medium">"Nice."</span>
+                  <span className="text-blue-400 font-medium">&ldquo;Nice.&rdquo;</span>
                 </p>
                 
                 <div className="flex items-center gap-2 text-xs text-gray-500">
@@ -157,10 +157,10 @@ export default function Home() {
                   onKeyDown={handleConnectKeyDown}
                   type="button"
                   tabIndex={0}
-                  aria-label="Let's connect and start a conversation"
+                  aria-label="Let&apos;s connect and start a conversation"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    <span>Let's Connect</span>
+                    <span>Let&apos;s Connect</span>
                     <svg 
                       className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
                       fill="none" 

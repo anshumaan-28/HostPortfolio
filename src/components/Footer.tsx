@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { FiMail, FiPhone, FiMapPin, FiExternalLink } from "react-icons/fi";
+import { FiMail, FiMapPin, FiExternalLink } from "react-icons/fi";
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from "react-icons/fa";
 
 const Footer: React.FC = () => {
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
           >
             <h3 className="text-xl font-bold text-white mb-4">Anshumaan Sharma</h3>
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-md">
-              Full-stack developer and AI enthusiast with 3+ years of experience helping businesses build powerful web applications, e-commerce platforms, and automated solutions. I specialize in turning ideas into scalable, high-performing digital products that don't just look good but deliver measurable results. Whether it's creating seamless user experiences, streamlining workflows with AI, or developing custom solutions tailored to your needs, I'm here to help bring your vision to life.
+              Full-stack developer and AI enthusiast with 3+ years of experience helping businesses build powerful web applications, e-commerce platforms, and automated solutions. I specialize in turning ideas into scalable, high-performing digital products that don&apos;t just look good but deliver measurable results. Whether it&apos;s creating seamless user experiences, streamlining workflows with AI, or developing custom solutions tailored to your needs, I&apos;m here to help bring your vision to life.
             </p>
             
             {/* Contact Info */}

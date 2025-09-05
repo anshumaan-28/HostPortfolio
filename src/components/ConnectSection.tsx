@@ -5,7 +5,7 @@ import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion"
 import { 
   SiGithub, SiInstagram, SiLinkedin, SiMedium, SiPinterest, SiX 
 } from "react-icons/si";
-import { FiSend, FiArrowRight, FiArrowLeft, FiCheck, FiMail, FiTwitter } from "react-icons/fi";
+import { FiSend, FiArrowRight, FiCheck } from "react-icons/fi";
 
 // Social media links with modern styling
 const socialLinks = [
@@ -174,7 +174,7 @@ export default function ConnectSection({ prefilledMessage = "" }: { prefilledMes
               className="text-4xl md:text-5xl font-bold mb-6"
             >
               <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-white">
-                Let's Connect
+                Let&apos;s Connect
               </span>
             </motion.h2>
             
@@ -186,7 +186,7 @@ export default function ConnectSection({ prefilledMessage = "" }: { prefilledMes
               transition={{ duration: 0.7, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
               className="text-lg text-gray-400 max-w-2xl mx-auto"
             >
-              I'm always interested in new opportunities, collaborations, or just a friendly chat about technology and innovation.
+              I&apos;m always interested in new opportunities, collaborations, or just a friendly chat about technology and innovation.
             </motion.p>
           </div>
         </motion.div>
@@ -295,7 +295,7 @@ export default function ConnectSection({ prefilledMessage = "" }: { prefilledMes
                     </div>
                     <h3 className="text-2xl font-bold mb-3 text-white">Message Sent!</h3>
                     <p className="text-gray-400 mb-8 max-w-md">
-                      Thank you for reaching out. I'll get back to you as soon as possible.
+                      Thank you for reaching out. I&apos;ll get back to you as soon as possible.
                     </p>
                     <motion.button 
                       onClick={() => setIsSubmitted(false)}

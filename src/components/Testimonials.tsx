@@ -67,7 +67,7 @@ export default function TestimonialsSection() {
           <div className="w-12 h-px bg-gradient-to-r from-yellow-400 to-transparent mx-auto mb-4"></div>
           
           <p className="text-sm sm:text-base text-gray-400 max-w-xl mx-auto">
-            Real feedback from businesses I've helped grow through technology
+            Real feedback from businesses I&apos;ve helped grow through technology
           </p>
         </motion.div>
 

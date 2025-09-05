@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
-import { FiCode, FiLayers, FiZap, FiTrendingUp, FiUsers, FiGlobe } from "react-icons/fi";
+import { FiCode, FiLayers, FiZap } from "react-icons/fi";
 
 const DeveloperContent = ({ 
   title, 
@@ -84,7 +84,7 @@ Project Details:
           </div>
           <div>
             <h4 className="text-lg font-semibold text-white">Ready to Collaborate?</h4>
-            <p className="text-gray-400 text-sm">Let's build something amazing together</p>
+            <p className="text-gray-400 text-sm">Let&apos;s build something amazing together</p>
           </div>
         </div>
         <motion.button
